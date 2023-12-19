@@ -1,6 +1,6 @@
 ---
     title: 'Content'
-    layout: '../layouts/Layout.astro'
+    layout: '../../layouts/Layout.astro'
 ---
 
 # Esto es un ejemplo de artículo
