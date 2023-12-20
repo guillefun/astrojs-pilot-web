@@ -1,21 +1,65 @@
 ---
- import { type Doc } from '../../types/api'
- import Card from '../../components/Card.astro';
-import { getLatestLaunches } from '../../lib/services/spacex.ts';
+import { type Doc } from '../../types/api'
+import Card from '../../components/Card.astro'
+import { getLatestLaunches } from '../../lib/services/spacex.ts'
 
-
-const  docs = await getLatestLaunches();
-
+const docs = await getLatestLaunches()
 ---
 
+<div class="pt-8 pb-16 px-2 sm:px-12 lg:px-16 flex">
+  <div class="relative mb-4 flex w-full flex-wrap items-stretch">
+    <input
+      type="search"
+      class="relative m-0 block min-w-0 flex-auto rounded-2xl border border-solid border-neutral-300 bg-transparent bg-clip-padding px-5 py-[0.75rem] text-xl font-normal leading-[1.6 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-400 dark:focus:border-primary placeholder:text-neutral-400 font-bold"
+      placeholder="Search flight number"
+      aria-label="Search"
+      aria-describedby="button-addon2"
+    />
+
+    <!--Search icon-->
+    <!--<span
+      class="input-group-text flex items-center whitespace-nowrap rounded px-2 sm:px-3 lg:px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
+      id="basic-addon2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        class="h-5 w-5">
+        <path
+          fill-rule="evenodd"
+          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+          clip-rule="evenodd" />
+      </svg>
+    </span>-->
+  </div>
+</div>
+<!--<div class="pt-8 pb-16 px-16">
+    <form>   
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-6 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input type="search" id="default-search" class="block w-full p-5 ps-16 text-xl text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by flight number" required>
+            <button type="submit" class="text-white absolute end-2.5 bottom-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+        </div>
+    </form>
+</div>-->
 <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-    {
-        docs.map( (doc: Doc) => (
-           /*<article>
+  {
+    docs.map((doc: Doc) => (
+      /*<article>
                 <img src={doc.links.patch.small} alt=""/>
                 <h2>Launch #{doc.id}</h2>
-            </article>*/
-            <Card id={doc.id} img={doc.links.patch.small} success={doc.success} flightNumber={doc.flight_number} details={doc.details}/>
-        ))
-    }
+            </article>*/ <Card
+        id={doc.id}
+        img={doc.links.patch.small}
+        success={doc.success}
+        flightNumber={doc.flight_number}
+        details={doc.details}
+      />
+    ))
+  }
 </div>
