@@ -1,5 +1,62 @@
 ---
- const { id } = Astro.params;
+import type { GetStaticPaths } from 'astro'
+import {
+  getStaticPathsForLaunches,
+  getLaunchById,
+} from '../../lib/services/spacex'
+import Layout from '../../layouts/Layout.astro'
 
- console.log(id);
+const { id } = Astro.params
+
+let launch
+if (id) {
+  launch = await getLaunchById({ id })
+}
+/*
+////////////////////////////////
+///// FOR STATIC RENDERING /////
+const paths = await getStaticPathsForLaunches()
+export const getStaticPaths = (() => {
+  return paths
+}) satisfies GetStaticPaths
+////////////////////////////////
+*/
 ---
+
+<Layout title={`Launch ${id}`}>
+  <article>
+    <div
+      class="max-w-screen-md flex flex-col justify-center p-4 m-auto border-double border-2 rounded-lg shadow-md bg-gray-800 border-gray-700"
+    >
+      <picture class="flex justify-center p-4">
+        <img
+          class="mb-5 rounded-lg"
+          src={launch?.links?.patch.small}
+          alt={`Patch for launch ${launch?.name}`}
+        />
+      </picture>
+
+      <header class="p-4 pl-0">
+        <span
+          class:list={[
+            'text-xs font-semibold mr-2 px-2.5 py-0.5 rounded',
+            {
+              'bg-green-200 text-green-900': launch?.success,
+              'bg-red-200 text-red-900': !launch?.success,
+            },
+          ]}
+        >
+          {launch?.success ? 'Success' : 'Failed'}
+        </span>
+        <h2 class="text-4xkl text-white font-bold py-2">
+          Launch #{launch?.flight_number}
+        </h2>
+      </header>
+
+      <p class="text-lg">{launch?.details}</p>
+      <p class="text-lg">Date UTC: {launch?.date_utc}</p>
+      <p class="text-lg">Date UNIX: {launch?.date_unix}</p>
+      <p class="text-lg">Rocket: {launch?.name}</p>
+    </div>
+  </article>
+</Layout>
